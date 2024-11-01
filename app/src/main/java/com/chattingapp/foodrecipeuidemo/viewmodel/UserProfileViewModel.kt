@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
+import retrofit2.HttpException
 
 class UserProfileViewModel : ViewModel() {
 
@@ -59,7 +61,28 @@ class UserProfileViewModel : ViewModel() {
             }
         }
     }
+    private val _updateResult = MutableStateFlow(false)
 
-
+    private val _isLoadingChangeImage = MutableStateFlow(false)
+    fun changeProfilePicture(file: MultipartBody.Part, userProfileId: Long) {
+        if(!_isLoadingChangeImage.value) {
+            _isLoadingChangeImage.value = true
+            viewModelScope.launch {
+                try {
+                    apiService.changeProfilePicture(file, userProfileId)
+                    _updateResult.value = true
+                } catch (e: HttpException) {
+                    Log.d("PROFILE PICTURE ERROR:", e.message.orEmpty())
+                    _updateResult.value = false
+                } catch (e: Exception) {
+                    Log.d("PROFILE PICTURE ERROR:", e.message.orEmpty())
+                    _updateResult.value = false
+                }
+                finally {
+                    _isLoadingChangeImage.value = false
+                }
+            }
+        }
+    }
 
 }

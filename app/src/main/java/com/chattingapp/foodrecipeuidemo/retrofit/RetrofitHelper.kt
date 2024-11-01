@@ -8,7 +8,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitHelper {
 
-    private const val BASE_URL = "http://139.179.129.228:8765/"
+    private const val BASE_URL = "http://192.168.1.158:8765/"
 
     // Create an OkHttpClient without an Interceptor
     private val httpClient = OkHttpClient.Builder()
