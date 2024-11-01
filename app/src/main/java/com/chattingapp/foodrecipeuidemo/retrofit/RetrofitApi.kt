@@ -5,6 +5,7 @@ import com.chattingapp.foodrecipeuidemo.entity.ChangePasswordRequest
 import com.chattingapp.foodrecipeuidemo.entity.User
 import com.chattingapp.foodrecipeuidemo.entity.UserProfile
 import com.chattingapp.foodrecipeuidemo.entity.UserProfileDTO
+import com.chattingapp.foodrecipeuidemo.entity.UserSkill
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -59,5 +60,21 @@ interface RetrofitAPICredentials {
     @POST("profile-api/change-profile-picture")
     suspend fun changeProfilePicture(@Part file: MultipartBody.Part, @Query("userId") userProfileId: Long) // Use Unit instead of Void for suspend functions
 
+    @GET("skills/user/{userId}")
+    suspend fun getUserSkillsByUserId(@Path("userId") userId: Long): List<UserSkill>
 
+    @DELETE("skills/delete/{id}")
+    suspend fun deleteUserSkill(@Path("id") id: Long)
+
+    @POST("skills/add-skill")
+    suspend fun addUserSkill(@Body userSkill: UserSkill): UserSkill
+
+    @GET("wanted-skills/user/{userId}")
+    suspend fun getWantedSkillsByUserId(@Path("userId") userId: Long): List<UserSkill>
+
+    @DELETE("wanted-skills/delete/{id}")
+    suspend fun deleteWantedSkill(@Path("id") id: Long)
+
+    @POST("wanted-skills/add-skill")
+    suspend fun addWantedSkill(@Body userSkill: UserSkill): UserSkill
 }

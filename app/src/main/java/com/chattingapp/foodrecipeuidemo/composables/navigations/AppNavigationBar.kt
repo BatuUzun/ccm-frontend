@@ -83,6 +83,23 @@ fun AppNavigationBar(navController: NavController) {
                         navController.navigate("profile")
                     }
                 )
+                BottomNavigationItem(
+                    icon = {
+                        Icon(
+                            painterResource(id = if (currentRoot == "add") R.drawable.createrecipeselected else R.drawable.createrecipenotselected),
+                            contentDescription = "add",
+                            modifier = Modifier.size(ICON_SIZE)
+                        )
+                    },
+                    selected = currentRoot == "add",
+                    onClick = {
+                        currentRoot = "add"
+
+                        lastClickTimeProfile = 0
+                        lastClickTimeFeed = 0
+                        navController.navigate("add")
+                    }
+                )
 
             }
         }

@@ -24,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.Coil
 import com.chattingapp.foodrecipeuidemo.activity.ui.theme.MyAppTheme
 import com.chattingapp.foodrecipeuidemo.coil.CoilSetup
+import com.chattingapp.foodrecipeuidemo.composables.navigations.AddScreen
 import com.chattingapp.foodrecipeuidemo.composables.navigations.AppNavigationBar
 import com.chattingapp.foodrecipeuidemo.composables.navigations.HomeScreen
 import com.chattingapp.foodrecipeuidemo.composables.navigations.ProfileScreen
@@ -70,12 +71,18 @@ class HomePageActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding)
                             ) {
                                 composable("home") {
+                                    Constant.isAddPage = false
 
                                     HomeScreen()
                                 }
                                 composable("profile") {
+                                    Constant.isAddPage = false
 
                                     ProfileScreen(navController)
+                                }
+                                composable("add") {
+                                    Constant.isAddPage = true
+                                    AddScreen(navController)
                                 }
 
 

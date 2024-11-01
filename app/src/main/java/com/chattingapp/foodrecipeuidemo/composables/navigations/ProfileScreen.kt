@@ -11,16 +11,24 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -39,10 +47,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chattingapp.foodrecipeuidemo.MainActivity
 import com.chattingapp.foodrecipeuidemo.R
+import com.chattingapp.foodrecipeuidemo.composables.tabs.TabContentNeededSkills
+import com.chattingapp.foodrecipeuidemo.composables.tabs.TabContentYourSkills
 import com.chattingapp.foodrecipeuidemo.constant.Constant
 import com.chattingapp.foodrecipeuidemo.viewmodel.ProfileImageViewModel
 import com.chattingapp.foodrecipeuidemo.viewmodel.TokenViewModel
 import com.chattingapp.foodrecipeuidemo.viewmodel.UserProfileViewModel
+import com.chattingapp.foodrecipeuidemo.viewmodel.UserSkillsViewModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -152,16 +163,22 @@ fun ProfileScreen(navController: NavController) {
 
                         if (displayBitmap != null) {
                             Constant.userProfile.bm = displayBitmap
-                            Image(
-                                bitmap = displayBitmap.asImageBitmap(),
-                                contentDescription = null,
+                            Box(
                                 modifier = Modifier
-                                    .size(100.dp)
-                                    .padding(10.dp, 0.dp, 0.dp, 0.dp)
-                                    .clickable {
-                                        launcher.launch("image/*")
-                                    }
-                            )
+                                    .fillMaxWidth() // Makes the Box take up available space
+                                    .padding(top = 30.dp, end = 20.dp), // Add outer padding if needed
+                                contentAlignment = Alignment.Center // Center the content inside the Box
+                            ) {
+                                Image(
+                                    bitmap = displayBitmap.asImageBitmap(),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(100.dp)
+                                        .clickable {
+                                            launcher.launch("image/*")
+                                        }
+                                )
+                            }
                         }
 
                     }
@@ -176,11 +193,53 @@ fun ProfileScreen(navController: NavController) {
                     }
 
                 }
+
+
             }
         }
 
+
+        val tabTitles = listOf("Your Skills", "Needed Skills")
+        var selectedTabIndex by remember { mutableStateOf(0) }
+
+        Column(modifier = Modifier.padding(top = 20.dp)) {
+            TabRow(
+                selectedTabIndex = selectedTabIndex) {
+                tabTitles.forEachIndexed { index, title ->
+                    Tab(
+                        selected = selectedTabIndex == index,
+                        onClick = { selectedTabIndex = index },
+                        modifier = Modifier.padding(8.dp),
+                        text = {
+                            Text(
+                                text = title,
+                                color = if (selectedTabIndex == index) {
+                                    Color.Black // Color for selected tab (black)
+                                } else {
+                                    Color.Gray // Color for unselected tab (gray)
+                                },
+                                fontWeight = if (selectedTabIndex == index) {
+                                    FontWeight.Bold // Bold text for the selected tab
+                                } else {
+                                    FontWeight.Normal // Normal text for unselected tab
+                                }
+                            )
+                        }
+                    )
+                }
+            }
+
+            // Content based on selected tab
+            when (selectedTabIndex) {
+                0 -> TabContentYourSkills() // Content for Your Skills
+                1 -> TabContentNeededSkills() // Content for Needed Skills
+            }
+        }
     }
-}
+
+
+    }
+
 private fun navigateToMainActivity(context: Context) {
     val intent = Intent(context, MainActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

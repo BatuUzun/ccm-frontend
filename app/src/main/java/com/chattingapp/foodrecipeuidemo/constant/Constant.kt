@@ -7,4 +7,6 @@ object Constant {
     lateinit var user:User
     lateinit var userProfile:UserProfile
     const val MINIMUM_PASSWORD_SIZE = 8
+
+    var isAddPage = false
 }
