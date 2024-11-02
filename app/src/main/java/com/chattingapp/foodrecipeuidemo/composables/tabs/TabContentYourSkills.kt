@@ -6,7 +6,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -48,10 +47,11 @@ fun TabContentYourSkills() {
                         .fillMaxWidth() // Make the Box take up all available width
                         .size(200.dp, 100.dp) // Set a specific width and height for the Box
                         .padding(16.dp) // Optional: add padding around the text
-                        .border(BorderStroke(2.dp, Color.Cyan), RoundedCornerShape(16.dp)) // Add a border with rounded corners
-                        .background(Color.Black, RoundedCornerShape(16.dp)) // Set a custom background color with rounded corners
+                        .border(BorderStroke(2.dp, Color.Black), RoundedCornerShape(16.dp)) // Add a border with rounded corners
+                        .background(Color(51,55,121), RoundedCornerShape(16.dp)) // Set a custom background color with rounded corners
                         .clickable {
                             // Handle double click
+
                             val currentTime = System.currentTimeMillis()
                             if (currentTime - lastClickTime < doubleClickThreshold) {
                                 viewModel.deleteSkill(skill.id) // Call delete function on double click
@@ -100,6 +100,7 @@ fun TabContentYourSkills() {
                         textState.value = ""
                     }
                 },
+
                 modifier = Modifier.padding(top = 16.dp) // Optional padding
             ) {
                 Text("Submit", fontSize = 16.sp) // Customize button text size

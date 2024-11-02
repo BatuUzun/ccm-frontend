@@ -15,20 +15,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -53,7 +48,6 @@ import com.chattingapp.foodrecipeuidemo.constant.Constant
 import com.chattingapp.foodrecipeuidemo.viewmodel.ProfileImageViewModel
 import com.chattingapp.foodrecipeuidemo.viewmodel.TokenViewModel
 import com.chattingapp.foodrecipeuidemo.viewmodel.UserProfileViewModel
-import com.chattingapp.foodrecipeuidemo.viewmodel.UserSkillsViewModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -238,7 +232,7 @@ fun ProfileScreen(navController: NavController) {
     }
 
 
-    }
+}
 
 private fun navigateToMainActivity(context: Context) {
     val intent = Intent(context, MainActivity::class.java)

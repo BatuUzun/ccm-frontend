@@ -49,8 +49,8 @@ fun TabContentNeededSkills() {
                         .fillMaxWidth() // Make the Box take up all available width
                         .size(200.dp, 100.dp) // Set a specific width and height for the Box
                         .padding(16.dp) // Optional: add padding around the text
-                        .border(BorderStroke(2.dp, Color.Cyan), RoundedCornerShape(16.dp)) // Add a border with rounded corners
-                        .background(Color.Black, RoundedCornerShape(16.dp)) // Set a custom background color with rounded corners
+                        .border(BorderStroke(2.dp, Color.Black), RoundedCornerShape(16.dp)) // Add a border with rounded corners
+                        .background(Color(21,55,121), RoundedCornerShape(16.dp)) // Set a custom background color with rounded corners
                         .clickable {
                             // Handle double click
                             val currentTime = System.currentTimeMillis()
