@@ -112,9 +112,16 @@ fun MyAppTheme(content: @Composable () -> Unit) {
 @Composable
 fun MyAppTheme(content: @Composable () -> Unit) {
     val colorScheme = lightColorScheme(
-        primary = Color(0xFF6200EE), // example colors
-        secondary = Color(0xFF03DAC6),
-        background = Color(0xFFFFFDD0) // ensure this is set to the desired background color
+        primary = Color(0xFF6200EE), // Purple 500
+        onPrimary = Color.White, // Text/icons on primary
+        secondary = Color(0xFF03DAC6), // Teal 200
+        onSecondary = Color.Black, // Text/icons on secondary
+        background = Color(0xFFFAFAFA), // Light gray for the background
+        onBackground = Color.Black, // Text/icons on background
+        surface = Color.White, // Surface color
+        onSurface = Color.Black, // Text/icons on surface
+        error = Color(0xFFB00020), // Error color
+        onError = Color.White // Text/icons on error
     )
 
     MaterialTheme(
