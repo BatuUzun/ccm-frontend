@@ -3,6 +3,8 @@ package com.chattingapp.foodrecipeuidemo.retrofit
 import com.chattingapp.foodrecipeuidemo.entity.AuthenticationDTO
 import com.chattingapp.foodrecipeuidemo.entity.ChangePasswordRequest
 import com.chattingapp.foodrecipeuidemo.entity.Chat
+import com.chattingapp.foodrecipeuidemo.entity.Message
+import com.chattingapp.foodrecipeuidemo.entity.MessageRequest
 import com.chattingapp.foodrecipeuidemo.entity.User
 import com.chattingapp.foodrecipeuidemo.entity.UserProfile
 import com.chattingapp.foodrecipeuidemo.entity.UserProfileDTO
@@ -91,4 +93,10 @@ interface RetrofitAPICredentials {
 
     @GET("/profile-api/{userId}/profile-picture")
     suspend fun getProfilePicture(@Path("userId") userId: Long): String?
+
+    @GET("/message/chat/{chatId}")
+    suspend fun getChatLog(@Path("chatId") chatId: Long): List<Message>
+
+    @POST("/message/send")
+    suspend fun sendMessage(@Body request: MessageRequest): Message
 }

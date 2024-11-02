@@ -21,7 +21,7 @@ class ChatViewModel : ViewModel() {
     fun createChat(user1Id: Long, user2Id: Long) {
         viewModelScope.launch {
             try {
-                val chat = Chat(0, user1Id = user1Id, user2Id = user2Id, "")
+                val chat = Chat(0, user1Id = user1Id, user2Id = user2Id, "", "")
                 val createdChat = RetrofitHelper.apiService.createChat(chat)
                 createdChatLiveData.value = createdChat
             } catch (e: Exception) {

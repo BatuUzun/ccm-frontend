@@ -1,29 +1,35 @@
 package com.chattingapp.foodrecipeuidemo.composables.navigations
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.chattingapp.foodrecipeuidemo.constant.Constant
 import com.chattingapp.foodrecipeuidemo.entity.Chat
-import com.chattingapp.foodrecipeuidemo.viewmodel.UserProfileViewModel
+
+import androidx.compose.foundation.clickable
+import androidx.navigation.NavHostController
 
 @Composable
-fun ChatItem(chat: Chat) {
-
-    // Fetch the profile picture when the screen is displayed
-
-
-    // Display the profile picture or a placeholder if null
+fun ChatItem(chat: Chat, navController: NavHostController) {
+    // Add a clickable modifier to navigate when the Row is clicked
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clickable {
+                // Navigate to a different screen when clicked
+                navController.navigate("chatDetail/${chat.id}/${chat.user2Username}/${chat.user2ProfilePicture}") // Replace "chatDetail" with your actual route
+            }
+    ) {
         AsyncImage(
             model = "${Constant.AWS_S3_LINK}${chat.user2ProfilePicture}",
             contentDescription = null,
@@ -33,6 +39,12 @@ fun ChatItem(chat: Chat) {
                 .clip(RoundedCornerShape(8.dp))
         )
 
-    Spacer(modifier = Modifier.height(40.dp)) // Add space between items
+        Text(
+            text = chat.user2Username,
+            fontSize = 20.sp, // Set the desired font size
+            modifier = Modifier.align(Alignment.CenterVertically)
+        )
+    }
 
+    Spacer(modifier = Modifier.height(40.dp)) // Add space between items
 }

@@ -16,6 +16,14 @@ fun HomeScreen() {
         composable("messageScreen") {
             MessageScreen(navController) // The screen you navigate to
         }
+        composable("chatDetail/{chatId}/{username}/{profilePhoto}") { backStackEntry ->
+            val chatId = backStackEntry.arguments?.getString("chatId")
+            val username = backStackEntry.arguments?.getString("username")
+            val profilePhoto = backStackEntry.arguments?.getString("profilePhoto")
+
+            // Load and display chat details using the chatId
+            ChatDetailScreen(navController, chatId = chatId, username, profilePhoto)
+        }
     }
 
 }

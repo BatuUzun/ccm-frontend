@@ -104,7 +104,7 @@ fun MessageScreen(navController: NavHostController) {
 
                     if(displayChats){
                         chats.value.forEach { chat ->
-                            ChatItem(chat)
+                            ChatItem(chat, navController)
                         }
                     }
 

@@ -4,5 +4,6 @@ data class Chat(
     val id: Long,
     val user1Id: Long,
     val user2Id: Long,
-    val user2ProfilePicture: String
+    val user2ProfilePicture: String,
+    val user2Username: String
 )
