@@ -2,10 +2,12 @@ package com.chattingapp.foodrecipeuidemo.retrofit
 
 import com.chattingapp.foodrecipeuidemo.entity.AuthenticationDTO
 import com.chattingapp.foodrecipeuidemo.entity.ChangePasswordRequest
+import com.chattingapp.foodrecipeuidemo.entity.Chat
 import com.chattingapp.foodrecipeuidemo.entity.User
 import com.chattingapp.foodrecipeuidemo.entity.UserProfile
 import com.chattingapp.foodrecipeuidemo.entity.UserProfileDTO
 import com.chattingapp.foodrecipeuidemo.entity.UserSkill
+import com.chattingapp.foodrecipeuidemo.entity.UserSkillMatchDTO
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -77,4 +79,16 @@ interface RetrofitAPICredentials {
 
     @POST("wanted-skills/add-skill")
     suspend fun addWantedSkill(@Body userSkill: UserSkill): UserSkill
+
+    @GET("/feed/mutual-skills")
+    suspend fun getMutualSkills(@Query("userId") userId: Long): List<UserSkillMatchDTO>
+
+    @POST("/message/create-chat")
+    suspend fun createChat(@Body chat: Chat): Chat
+
+    @GET("/message/user/{userId}")
+    suspend fun getChatsByUserId(@Path("userId") userId: Long): List<Chat>
+
+    @GET("/profile-api/{userId}/profile-picture")
+    suspend fun getProfilePicture(@Path("userId") userId: Long): String?
 }

@@ -85,4 +85,19 @@ class UserProfileViewModel : ViewModel() {
         }
     }
 
+
+    private val _profilePicture = MutableStateFlow<String?>(null)
+    val profilePicture: StateFlow<String?> get() = _profilePicture
+
+    fun fetchProfilePicture(userId: Long) {
+        viewModelScope.launch {
+            try {
+                val picture = RetrofitHelper.apiService.getProfilePicture(userId)
+                _profilePicture.value = picture // Set the fetched picture
+            } catch (e: Exception) {
+                _profilePicture.value = null // Handle error
+            }
+        }
+    }
+
 }
